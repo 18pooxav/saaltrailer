@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Equipment Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0073e6;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .item {
+            background-color: #e0e0e0;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .item h3 {
+            margin: 0;
+        }
+        .item p {
+            margin: 5px 0;
+        }
+        .no-results {
+            text-align: center;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sports Equipment Finder</h1>
+        <p>Enter the name of the equipment to find its location.</p>
+    </header>
+
+    <div class="container">
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search for equipment..." onkeyup="searchEquipment()">
+        <div class="results" id="results-container">
+            <!-- Search results will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        // Mock data for equipment and their locations
+        const equipmentData = [
+            { id: 1, name: 'Football', location: 'Front Left Shelf', description: 'Size 5, Wilson' },
+            { id: 2, name: 'Soccer Net', location: 'Back Right Corner', description: '12ft Net' },
+            { id: 3, name: 'Cones', location: 'Middle Shelf', description: 'Set of 20' },
+            { id: 4, name: 'Basketball', location: 'Front Right Shelf', description: 'Size 7, Spalding' },
+            { id: 5, name: 'Tennis Rackets', location: 'Left Middle Shelf', description: 'Set of 4' }
+        ];
+
+        function searchEquipment() {
+            const query = document.getElementById('search-bar').value.toLowerCase();
+            const resultsContainer = document.getElementById('results-container');
+            resultsContainer.innerHTML = '';
+
+            const filteredItems = equipmentData.filter(item => 
+                item.name.toLowerCase().includes(query)
+            );
+
+            if (filteredItems.length === 0) {
+                resultsContainer.innerHTML = '<p class="no-results">No items found. Please try another search.</p>';
+            } else {
+                filteredItems.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('item');
+                    itemElement.innerHTML = `
+                        <h3>${item.name}</h3>
+                        <p><strong>Location:</strong> ${item.location}</p>
+                        <p><strong>Description:</strong> ${item.description}</p>
+                    `;
+                    resultsContainer.appendChild(itemElement);
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
